@@ -184,7 +184,7 @@ public abstract class CitaFormWindow extends Window {
             binderCita.writeBean(cita);
             cita.setEmpleado(getCurrentUser());
             service.saveOrUpdate(cita);
-            Planificador.get().addCita(cita);
+            Planificador.get().addCita(service.getUltimaAgregada());
             onSave();
             success=true;
 
