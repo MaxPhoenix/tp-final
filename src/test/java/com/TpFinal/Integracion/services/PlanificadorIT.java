@@ -1,11 +1,14 @@
 package com.TpFinal.Integracion.services;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -13,15 +16,24 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import com.TpFinal.dto.EstadoRegistro;
 import com.TpFinal.dto.cita.Cita;
 import com.TpFinal.dto.cita.TipoCita;
+import com.TpFinal.dto.cobro.Cobro;
+import com.TpFinal.dto.contrato.ContratoAlquiler;
+import com.TpFinal.dto.contrato.ContratoDuracion;
+import com.TpFinal.dto.contrato.EstadoContrato;
+import com.TpFinal.dto.contrato.TipoInteres;
 import com.TpFinal.dto.interfaces.Messageable;
 import com.TpFinal.dto.persona.CategoriaEmpleado;
 import com.TpFinal.dto.persona.Credencial;
 import com.TpFinal.dto.persona.Empleado;
+import com.TpFinal.dto.persona.Inquilino;
+import com.TpFinal.dto.persona.Persona;
+import com.TpFinal.dto.persona.Rol;
+import com.TpFinal.services.ContratoService;
 import com.TpFinal.services.NotificadorConcreto;
 import com.TpFinal.services.Planificador;
-import com.itextpdf.text.log.SysoCounter;
 
 
 public class PlanificadorIT {
@@ -79,7 +91,7 @@ public class PlanificadorIT {
 
 
 
-	
+	@Ignore
 	@Test
 	public void eliminarCita() {
 		try {
@@ -92,7 +104,6 @@ public class PlanificadorIT {
 
 				Empleado e=instanciaEmpleado();
 				e.setIdRol(new Long (i));
-				System.out.println("Valor en add: "+e.getCredencial().getUsuario());
 
 				Cita c = new Cita.Builder()
 						.setCitado("Señor "+String.valueOf(i))
@@ -104,7 +115,6 @@ public class PlanificadorIT {
 						.build();
 				c.setId(Long.valueOf(i));
 				citas.add(c);
-				System.out.println("empleado de la cita "+c.getEmpleado());
 			}
 			sc.agregarNotificaciones(citas);
 			boolean eliminar=true;
@@ -121,7 +131,7 @@ public class PlanificadorIT {
 			e.printStackTrace();
 		}
 	}
-
+	
 	@Ignore
 	@Test
 	public void addCitas() {
@@ -131,11 +141,11 @@ public class PlanificadorIT {
 			for(int i=0; i<3; i++) {
 				LocalDateTime fInicio = LocalDateTime.now();
 				fInicio=fInicio.plusMinutes(i+1);
-				fInicio=fInicio.plusHours(24);
+				fInicio=fInicio.plusHours(1);
+				System.out.println("Fecha de cita "+fInicio);
 
 				Empleado e=instanciaEmpleado();
 				e.setIdRol(new Long (i));
-				System.out.println("Valor en add: "+e.getCredencial().getUsuario());
 
 				Cita c = new Cita.Builder()
 						.setCitado("Señor "+String.valueOf(i))
@@ -147,7 +157,6 @@ public class PlanificadorIT {
 						.build();
 				c.setId(Long.valueOf(i));
 				citas.add(c);
-				System.out.println("empleado de la cita "+c.getEmpleado());
 			}
 			sc.agregarNotificaciones(citas);
 
@@ -155,6 +164,68 @@ public class PlanificadorIT {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	
+	@Test
+	public void cargarCobros() throws InterruptedException {
+		sc.setNotificacion(new NotificadorConcreto());
+		sc.setHoraInicioCobrosVencidos(LocalTime.now().plusMinutes(2));
+		ContratoAlquiler contrato=instanciaAlquilerSimple();
+		contrato.setEstadoContrato(EstadoContrato.Vigente);
+		contrato.setInquilinoContrato(personaInquilino(1).getInquilino());
+		
+		new ContratoService().addCobros(contrato);
+		
+		
+		List<Messageable>cobros=contrato.getCobros().stream().collect(Collectors.toList());
+		cobros.sort((c1,c2) -> {
+			Cobro c11 = (Cobro)c1;
+			Cobro c22 = (Cobro)c2;
+			
+			return c11.getFechaDeVencimiento().compareTo(c22.getFechaDeVencimiento());
+		});
+		
+		Cobro cob=(Cobro)cobros.get(0);
+		
+		Long id=new Long(0);
+		
+		for (Messageable c: cobros) {
+			Cobro c1=(Cobro)c;
+			c1.SetId(id);
+			id++;
+		}
+		
+		Planificador.get().agregarNotificaciones(cobros);
+		TimeUnit.SECONDS.sleep( 300);
+	}
+	
+	@Ignore
+	@Test
+	public void addCobros() throws InterruptedException {
+		sc.setNotificacion(new NotificadorConcreto());
+		sc.setHoraInicioCobrosVencidos(LocalTime.now().plusMinutes(2));
+		System.out.println(sc.getHoraInicioCobrosVencidos());
+		ContratoAlquiler contrato=instanciaAlquilerSimple();
+		contrato.setEstadoContrato(EstadoContrato.Vigente);
+		contrato.setInquilinoContrato(personaInquilino(1).getInquilino());
+		
+		new ContratoService().addCobros(contrato);
+		
+		
+		
+		
+		Long id=new Long(0);
+		
+		for (Messageable c: contrato.getCobros()) {
+			Cobro c1=(Cobro)c;
+			c1.SetId(id);
+			id++;
+		}
+		
+		
+		contrato.getCobros().forEach(c -> Planificador.get().addCobroVencido(c));
+		TimeUnit.SECONDS.sleep( 300);
 	}
 
 	public TipoCita randomCita() {
@@ -186,7 +257,45 @@ public class PlanificadorIT {
 				.setCredencial(instanciaCredencial())
 				.setFechaDeAlta(LocalDate.now())
 				.build();
-		System.out.println("aca "+e.getCredencial().getUsuario());
 		return e;
 	}
+	
+	private Persona personaInquilino(int i) {
+		Persona ret= new Persona.Builder()
+				.setApellido("dasd")
+				.setNombre("dsad")
+				.setDNI("231654")
+				.setEsInmobiliaria(false)
+				.setId(new Long(i))
+				.setMail("dsda21d@sa.com")
+				.setTelefono("132132")
+				.build();
+		ret.addRol(new Inquilino());
+		return ret;
+	}
+	
+    private ContratoAlquiler instanciaAlquilerSimple() {
+    	LocalDate fecha=LocalDate.now();
+    	fecha=fecha.minusMonths(5);
+	ContratoAlquiler ret = new ContratoAlquiler.Builder()
+		.setFechaCelebracion(fecha)
+		.setValorIncial(new BigDecimal("100.00"))
+		.setDiaDePago(fecha.plusDays(10).getDayOfMonth())
+		.setInteresPunitorio(new Double(50))
+		.setIntervaloActualizacion(new Integer(2))
+		.setTipoIncrementoCuota(TipoInteres.Simple)
+		.setTipoInteresPunitorio(TipoInteres.Simple)
+		.setPorcentajeIncremento(new Double(50))
+		.setInquilinoContrato(null)
+		.setDuracionContrato(instanciaContratoDuracion24())
+		.setEstadoRegistro(EstadoRegistro.ACTIVO)
+
+		.build();
+	ret.setEstadoContrato(EstadoContrato.Vigente);
+	return ret;
+    }
+    
+    private ContratoDuracion instanciaContratoDuracion24() {
+    	return new ContratoDuracion.Builder().setDescripcion("24 Horas").setDuracion(24).build();
+        }
 }

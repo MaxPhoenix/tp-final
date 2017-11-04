@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,19 +33,25 @@ public class Planificador {
 
 	Scheduler sc;
 	Job notificacion;
+	//citas
 	Integer horasAntesRecoradatorio1;
 	Integer horasAntesRecoradatorio2;
+	//cobros vencidos
 	Integer horasAntesCobrosVencidos;
+	LocalTime horaInicioCobrosVencidos;
+	
 	private static Planificador instancia;
 	public static boolean demoIniciado=false;
 
 	public static Planificador get(){
-		if(instancia==null)
+		if(instancia==null) {
 			try {
 				instancia=new Planificador();
 			} catch (SchedulerException e) {
 				e.printStackTrace();
 			}
+		}
+			
 		return instancia;
 	}
 
@@ -54,7 +61,8 @@ public class Planificador {
 		//Luego se remplaza por la info de la bd
 		horasAntesRecoradatorio1=1;
 		horasAntesRecoradatorio2=24;
-		horasAntesCobrosVencidos=24;
+		horasAntesCobrosVencidos=240;
+		horaInicioCobrosVencidos=LocalTime.of(19, 00, 00);
 	}
 
 	public void setNotificacion(Job notificacion) {
@@ -109,6 +117,29 @@ public class Planificador {
 		}
 		return ret;
 	}
+	
+	public void addCobroVencido(Cobro cobro) {
+		if(cobro.getId()!=null) {
+			agregarNotificacionCobro(cobro, horasAntesCobrosVencidos, 1);
+		}else
+			throw new IllegalArgumentException("El Cobro debe estar persistida");
+	}
+	
+	public boolean removeCobroVencido(Cobro cobro) {
+		boolean ret=false;
+		try {
+			if(cobro.getId()!=null) {
+
+						return sc.unscheduleJob(TriggerKey.triggerKey(String.valueOf(cobro.getId())+"-1"));
+			}else
+				throw new IllegalArgumentException("El Cobro debe estar persistida");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ret;
+	}
+	
+	
 
 	public void agregarNotificaciones(List<Messageable>citas) {
 		if(citas!=null && citas.size()>0) {
@@ -126,7 +157,7 @@ public class Planificador {
 		}
 	}
 
-	public void agregarJob(String titulo, String mensaje,String username, LocalDateTime fechaInicio, LocalDateTime fechaFin, String perioricidad, String id) {
+	public void agregarCita(String titulo, String mensaje,String username, LocalDateTime fechaInicio, LocalDateTime fechaFin, String perioricidad, String id) {
 		try {
 
 
@@ -163,11 +194,18 @@ public class Planificador {
 		Integer perioricidad=horas+1;
 		String triggerKey=c.getId().toString()+"-"+key.toString();
 		String username=c.getEmpleado();
-		agregarJob(c.getTitulo(), c.getMessage(),username, fechaInicio, fechaFin, String.valueOf(perioricidad), triggerKey);
+		agregarCita(c.getTitulo(), c.getMessage(),username, fechaInicio, fechaFin, String.valueOf(perioricidad), triggerKey);
 	}
 
 	private void agregarNotificacionCobro(Cobro c, Integer horas, Integer key) {
-		//TODO
+		LocalDateTime fechaInicio= LocalDateTime.of(c.getFechaDeVencimiento(), this.horaInicioCobrosVencidos);
+		LocalDateTime fechaFin= LocalDateTime.of(c.getFechaDeVencimiento(), this.horaInicioCobrosVencidos);
+		System.out.println(fechaInicio);
+		fechaInicio=fechaInicio.minusHours(horas);
+		Integer perioricidad=horas+1;
+		String triggerKey=c.getId().toString()+"-"+key.toString();
+		String username="";
+		agregarCita(c.getTitulo(), c.getMessage(),username, fechaInicio, fechaFin, String.valueOf(perioricidad), triggerKey);
 	}
 
 	public static void initDemo(){
@@ -229,6 +267,16 @@ public class Planificador {
 			e.printStackTrace();
 		}
 	}
+
+	public LocalTime getHoraInicioCobrosVencidos() {
+		return horaInicioCobrosVencidos;
+	}
+
+	public void setHoraInicioCobrosVencidos(LocalTime horaInicioCobrosVencidos) {
+		this.horaInicioCobrosVencidos = horaInicioCobrosVencidos;
+	}
+	
+	
 
 
 }
