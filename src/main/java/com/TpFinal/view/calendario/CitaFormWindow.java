@@ -145,7 +145,10 @@ public abstract class CitaFormWindow extends Window {
         	success=Planificador.get().removeCita(cita);
             success=service.delete(cita);
 
-
+            System.out.println("Borre la cita");
+            
+            System.out.println("Total de citas: "+service.readAll().size());
+            System.out.println("Total de citas de este user: "+service.readAllFromUser(this.getCurrentUser()).size());
 
         } catch (Exception e) {
             Notification.show("Error al Borrar");
@@ -187,6 +190,11 @@ public abstract class CitaFormWindow extends Window {
             Planificador.get().addCita(service.getUltimaAgregada());
             onSave();
             success=true;
+            
+            System.out.println("Agregue la cita");
+            
+            System.out.println("Total de citas: "+service.readAll().size());
+            System.out.println("Total de citas de este user: "+service.readAllFromUser(this.getCurrentUser()).size());
 
 
         } catch (ValidationException e) {
