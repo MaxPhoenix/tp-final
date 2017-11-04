@@ -236,6 +236,16 @@ public class CitaServiceIT {
 		assertEquals(5, service.readAllFromUser(e1).size());
 		assertEquals(5, service.readAllFromUser(e2).size());
 		assertEquals(10, service.readAll().size());
+		
+		Empleado e3=(Empleado) daop.readAllActives().get(0).getRol(Rol.Empleado);
+		
+		Cita c1=instanciaCita(1);
+		c1.setEmpleado(e1);
+		service.saveOrUpdate(c1);
+		
+		assertEquals(11, service.readAll().size());
+		assertEquals(6, service.readAllFromUser(e1).size());
+		assertEquals(5, service.readAllFromUser(e2).size());
 	}
 	
 	private Cita instanciaCita(int i) {
