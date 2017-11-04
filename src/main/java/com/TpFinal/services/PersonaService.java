@@ -65,6 +65,9 @@ public class PersonaService {
 
 	public Calificacion calificarInquilino(Persona p) {
 		Calificacion ret=null;
+		Integer maximoAcumulado=0;
+		Integer maximoMeses=0;
+		Integer cantidadMesesComoInquilino=0;
 		List<ContratoAlquiler> vigentes=getContratosVigentes(p);
 		if(p.getInquilino()!=null && p.getInquilino().getContratos()!=null && p.getInquilino().getContratos().size()!=0) {
 			for(ContratoAlquiler ca:vigentes) {
@@ -73,20 +76,35 @@ public class PersonaService {
 				new CobroService().calcularDatosFaltantes(cobros);
 				cobros.sort((c1,c2)-> c1.getFechaDeVencimiento().compareTo(c2.getFechaDeVencimiento()));
 				
-				if(cantidadConsecutivos(cobros)>=4) {
-					p.getInquilino().setCalificacion(Calificacion.A);
-					ret=Calificacion.A;
-				}else if(cantidadPagosAtrasados(cobros)>0 && cantidadPagosAtrasados(cobros)<=3 && cantidadDeMesesComoInquilino(cobros)<6 ) {
-					p.getInquilino().setCalificacion(Calificacion.C);
-					ret=Calificacion.C;
-				}else if(cantidadPagosAtrasados(cobros)>=3) {
-					p.getInquilino().setCalificacion(Calificacion.B);
-					ret=Calificacion.B;
-				}else {
-					p.getInquilino().setCalificacion(Calificacion.D);
-					ret=Calificacion.D;
-				}
-			}
+				if(cantidadConsecutivos(cobros)>maximoAcumulado)
+					maximoAcumulado=cantidadConsecutivos(cobros);
+				if(cantidadPagosAtrasados(cobros)>maximoMeses)
+					maximoMeses=cantidadPagosAtrasados(cobros);
+				if(cantidadDeMesesComoInquilino(cobros)<cantidadMesesComoInquilino)
+					cantidadMesesComoInquilino=cantidadDeMesesComoInquilino(cobros);
+			}	
+			
+			ret = calcular(p, maximoAcumulado, maximoMeses, cantidadMesesComoInquilino);
+			
+		}
+		return ret;
+	}
+
+	private Calificacion calcular(Persona p, Integer maximoAcumulado, Integer maximoMeses,
+			Integer cantidadMesesComoInquilino) {
+		Calificacion ret;
+		if(maximoAcumulado>=4) {
+			p.getInquilino().setCalificacion(Calificacion.A);
+			ret=Calificacion.A;
+		}else if(maximoMeses>0 && maximoMeses<=3 && cantidadMesesComoInquilino<6 ) {
+			p.getInquilino().setCalificacion(Calificacion.C);
+			ret=Calificacion.C;
+		}else if(maximoMeses>=3) {
+			p.getInquilino().setCalificacion(Calificacion.B);
+			ret=Calificacion.B;
+		}else {
+			p.getInquilino().setCalificacion(Calificacion.D);
+			ret=Calificacion.D;
 		}
 		return ret;
 	}

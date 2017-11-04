@@ -126,7 +126,7 @@ public class Planificador {
 		}
 	}
 
-	public void agregarCita(String titulo, String mensaje,String username, LocalDateTime fechaInicio, LocalDateTime fechaFin, String perioricidad, String id) {
+	public void agregarJob(String titulo, String mensaje,String username, LocalDateTime fechaInicio, LocalDateTime fechaFin, String perioricidad, String id) {
 		try {
 
 
@@ -163,7 +163,7 @@ public class Planificador {
 		Integer perioricidad=horas+1;
 		String triggerKey=c.getId().toString()+"-"+key.toString();
 		String username=c.getEmpleado();
-		agregarCita(c.getTitulo(), c.getMessage(),username, fechaInicio, fechaFin, String.valueOf(perioricidad), triggerKey);
+		agregarJob(c.getTitulo(), c.getMessage(),username, fechaInicio, fechaFin, String.valueOf(perioricidad), triggerKey);
 	}
 
 	private void agregarNotificacionCobro(Cobro c, Integer horas, Integer key) {
