@@ -88,7 +88,7 @@ public class Cita implements Identificable, BorradoLogico, Messageable {
 		this.direccionLugar = b.direccionLugar;
 		this.observaciones = b.observaciones;
 		this.tipoDeCita = b.tipoDeCita;
-//		this.empleado=b.empleado;
+		this.empleado=b.empleado;
 	}
 
 	public LocalDateTime getFechaFin() {

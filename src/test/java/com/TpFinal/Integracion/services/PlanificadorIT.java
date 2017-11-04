@@ -77,9 +77,7 @@ public class PlanificadorIT {
 		}
 	}
 
-
-
-	
+	@Ignore
 	@Test
 	public void eliminarCita() {
 		try {
@@ -122,7 +120,6 @@ public class PlanificadorIT {
 		}
 	}
 
-	@Ignore
 	@Test
 	public void addCitas() {
 		try {
@@ -131,11 +128,10 @@ public class PlanificadorIT {
 			for(int i=0; i<3; i++) {
 				LocalDateTime fInicio = LocalDateTime.now();
 				fInicio=fInicio.plusMinutes(i+1);
-				fInicio=fInicio.plusHours(24);
+				fInicio=fInicio.plusHours(1);
 
 				Empleado e=instanciaEmpleado();
 				e.setIdRol(new Long (i));
-				System.out.println("Valor en add: "+e.getCredencial().getUsuario());
 
 				Cita c = new Cita.Builder()
 						.setCitado("Señor "+String.valueOf(i))
@@ -147,7 +143,6 @@ public class PlanificadorIT {
 						.build();
 				c.setId(Long.valueOf(i));
 				citas.add(c);
-				System.out.println("empleado de la cita "+c.getEmpleado());
 			}
 			sc.agregarNotificaciones(citas);
 
