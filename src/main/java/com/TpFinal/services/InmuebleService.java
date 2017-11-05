@@ -111,6 +111,31 @@ public class InmuebleService {
 		.build();
     }
 
+	public Resource getImagen(Inmueble inmueble,String imagen) {
+		if (inmueble != null && inmueble.getId() != null) {
+			if (new File("Files" + File.separator + inmueble.getNombreArchivoPortada()).exists()) {
+				StreamResource str = new StreamResource(new StreamResource.StreamSource() {
+					@Override
+					public InputStream getStream() {
+						try {
+
+							return new FileInputStream("Files" + File.separator + imagen);
+						} catch (FileNotFoundException e) {
+							System.out.println("Error al Buscar Portada de inmueble: " + inmueble);
+
+						}
+						return null;
+					}
+				}, "Files" + File.separator + inmueble.getNombreArchivoPortada());
+
+				return str;
+			}
+
+		}
+		return null;
+
+	}
+
     public Resource getPortada(Inmueble inmueble) {
 	if (inmueble != null && inmueble.getId() != null) {
 	    if (new File("Files" + File.separator + inmueble.getNombreArchivoPortada()).exists()) {
