@@ -440,15 +440,19 @@ public class InmuebleForm extends FormLayout {
 	    localidades.setEnabled(true);
 	    Resource res = InmuebleService.getPortada(this.inmueble);
 	    if (res == null) {
+	    	logger.debug("Portada Null!!!");
 		portada.setSource(null);
 		portada.setVisible(false);
 	    } else {
+			logger.debug("Portada No Null!!!");
 	    	portada.setVisible(true);
 		portada.setSource(res);
 	    }
 	    delete.setVisible(true);
 	} else {
+		logger.debug("Inmueble NUll!!");
 	    portada.setSource(null);
+	    portada.setVisible(false);
 		delete.setVisible(false);
 	    this.inmueble = InmuebleService.getInstancia();
 	    localidades.setEnabled(false);
@@ -485,7 +489,6 @@ public class InmuebleForm extends FormLayout {
 	try {
 	    binderInmueble.writeBean(inmueble);
 
-	    Notification.show(inmueble.nombreArchivoPortada);
 	    if (inmueble.getPropietario().getPersona() != null)
 		success = inmbService.merge(inmueble);
 	    if (success)

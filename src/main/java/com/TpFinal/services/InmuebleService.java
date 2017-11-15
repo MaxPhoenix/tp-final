@@ -131,7 +131,7 @@ public class InmuebleService {
     }
 
     public static Resource getPortada(Inmueble inmueble) {
-	if (inmueble != null && inmueble.getId() != null) {
+	if (inmueble != null ) {
 	    if (new File("Files" + File.separator + inmueble.getNombreArchivoPortada()).exists()) {
 		StreamResource str = new StreamResource(new StreamResource.StreamSource() {
 		    @Override
@@ -140,7 +140,8 @@ public class InmuebleService {
 
 			    return new FileInputStream("Files" + File.separator + inmueble.getNombreArchivoPortada());
 			} catch (FileNotFoundException e) {
-			    System.out.println("Error al Buscar Portada de inmueble: " + inmueble);
+			    System.err.println("Error al Buscar Portada de inmueble: " + inmueble);
+
 
 			}
 			return null;
@@ -151,6 +152,7 @@ public class InmuebleService {
 	    }
 
 	}
+	System.err.println("Error al Buscar Portada de inmueble: " + inmueble);
 	return null;
 
     }

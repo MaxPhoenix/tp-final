@@ -220,6 +220,14 @@ public class ImageVisualizer extends Window {
 	imageViewer.setImages(img);
 	imageViewer.setCenterImageRelativeWidth(0.5f);
 	imageViewer.setCenterImageIndex(img.indexOf(mapaStringFoto.get(portada)) - 1);
+	if(img.size()==1){
+		Resource res=img.get(0);
+		img.add(res);
+		imageViewer.setImages(img);
+		img.remove(res);
+		imageViewer.setImages(img);
+
+	}
 
     }
 
