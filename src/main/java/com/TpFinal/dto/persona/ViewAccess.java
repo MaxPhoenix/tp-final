@@ -46,6 +46,7 @@ public enum ViewAccess {
         views.add(DashboardViewType.CONTRATOS);
         views.add(DashboardViewType.COBROS);
         views.add(DashboardViewType.REPORTES);
+        views.add(DashboardViewType.MOVIMIENTOS);
         return views;
 
     }

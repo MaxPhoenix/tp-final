@@ -3,6 +3,9 @@ package com.TpFinal;
 import com.TpFinal.data.conexion.ConexionHibernate;
 import com.TpFinal.data.conexion.TipoConexion;
 import com.TpFinal.dto.notificacion.NotificadorJob;
+import com.TpFinal.services.ContratoDuracionService;
+import com.TpFinal.services.CredencialService;
+import com.TpFinal.services.ParametrosSistemaService;
 import com.TpFinal.services.Planificador;
 import com.TpFinal.utils.GeneradorDeDatosSinAsociaciones;
 import com.vaadin.server.ServiceException;
@@ -32,6 +35,16 @@ public class DashboardServlet extends VaadinServlet implements SessionInitListen
 	logger.info("Iniciando Server..");
 	logger.info("===================");
 	establecerConexionesBD();
+	ParametrosSistemaService.crearParametrosDefault();
+	CredencialService.crearAdminAdmin();
+	ContratoDuracionService.crearDuracionesPorDefecto();
+	if(logger.isDebugEnabled()) {
+	    logger.debug("=============================");
+	    logger.debug("Leyendo parámetros desde db ");
+	    logger.debug("=============================");
+	    logger.debug(ParametrosSistemaService.getParametros().toString());
+	    logger.debug("=============================");
+	}
 	iniciarScheduller();
     }
 
@@ -57,17 +70,16 @@ public class DashboardServlet extends VaadinServlet implements SessionInitListen
 	// TODO Auto-generated method stub
 
     }
-    
-    
 
     @Override
     public void sessionInit(SessionInitEvent event) throws ServiceException {
-		/*logger.info("=================");
-		logger.info("Generando datos..");
-		logger.info("=================");
-		GeneradorDeDatosSinAsociaciones.generarDatos(4);*/
+	/*
+	 * logger.info("================="); logger.info("Generando datos..");
+	 * logger.info("=================");
+	 * GeneradorDeDatosSinAsociaciones.generarDatos(4);
+	 */
 
-	}
+    }
 
     @Override
     public void destroy() {
@@ -78,8 +90,6 @@ public class DashboardServlet extends VaadinServlet implements SessionInitListen
 	cerrarConexiones();
 	apagarScheduller();
     }
-    
-    
 
     private void apagarScheduller() {
 	logger.info("=======================");

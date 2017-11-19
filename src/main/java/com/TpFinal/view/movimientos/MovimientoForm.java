@@ -2,6 +2,7 @@ package com.TpFinal.view.movimientos;
 
 import java.math.BigDecimal;
 
+import com.TpFinal.dto.inmueble.TipoMoneda;
 import com.TpFinal.dto.movimiento.ClaseMovimiento;
 import com.TpFinal.dto.movimiento.Movimiento;
 import com.TpFinal.dto.movimiento.TipoMovimiento;
@@ -18,6 +19,7 @@ import com.vaadin.ui.DateField;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.RadioButtonGroup;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.themes.ValoTheme;
@@ -40,6 +42,7 @@ public class MovimientoForm extends FormLayout {
 	    ComboBox <TipoMovimiento> comboTipoMov = new ComboBox <>("Tipo de Movimiento");
 	    ComboBox <ClaseMovimiento> comboClaseMov = new ComboBox <>("Clase de Movimiento");
 	    DateField fechaCarga = new DateField("Fecha de Movimiento");
+	    RadioButtonGroup<TipoMoneda> rbgTipoMoneda = new RadioButtonGroup<>("Tipo Moneda", TipoMoneda.toList());
 	    //FiltroDuracion filtro = new FiltroDuracion();
 
 	    MovimientoService service = new MovimientoService();
@@ -95,6 +98,9 @@ public class MovimientoForm extends FormLayout {
 	        
 	        binderMovimiento.forField(this.comboClaseMov).asRequired("Seleccione una clase de movimiento")
 			.bind(Movimiento::getClaseMovimiento, Movimiento::setClaseMovimiento);
+	        
+	        binderMovimiento.forField(this.rbgTipoMoneda).asRequired("Seleccione un tipo de moneda")
+	        .bind(Movimiento::getTipoMoneda, Movimiento::setTipoMoneda);
 	       
 	    }
 
@@ -104,7 +110,7 @@ public class MovimientoForm extends FormLayout {
 
 	        tabSheet=new TabSheet();
 
-	        FormLayout principal=new FormLayout(comboTipoMov, comboClaseMov, descripcion, monto, fechaCarga);
+	        FormLayout principal=new FormLayout(comboTipoMov, comboClaseMov, descripcion, monto, fechaCarga, rbgTipoMoneda);
 	        
 	       
 	        principal.addStyleName(ValoTheme.FORMLAYOUT_LIGHT);

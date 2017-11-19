@@ -27,6 +27,7 @@ import com.TpFinal.dto.Identificable;
 import com.TpFinal.dto.cobro.Cobro;
 import com.TpFinal.dto.contrato.ContratoAlquiler;
 import com.TpFinal.dto.contrato.ContratoVenta;
+import com.TpFinal.dto.inmueble.TipoMoneda;
 
 
 @Entity
@@ -60,6 +61,10 @@ public class Movimiento implements Identificable, BorradoLogico{
 	@Enumerated(EnumType.STRING)
 	@Column(name =  "claseMovimiento")
 	private ClaseMovimiento claseMovimiento;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "tipoMoneda")
+	private TipoMoneda tipoMoneda;
 
 	@OneToOne(fetch=FetchType.EAGER)
 	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.MERGE})
@@ -77,6 +82,7 @@ public class Movimiento implements Identificable, BorradoLogico{
 		this.tipoMovimiento = b.tipoMovimiento;
 		this.claseMovimiento = b.claseMovimiento;
 		this.cobro=b.cobro;
+		this.tipoMoneda=b.tipoMoneda;
 	}
 
 	public static class Builder {
@@ -88,6 +94,7 @@ public class Movimiento implements Identificable, BorradoLogico{
 		private EstadoRegistro estadoRegistro;
 		private TipoMovimiento tipoMovimiento;
 		private ClaseMovimiento claseMovimiento;
+		private TipoMoneda tipoMoneda;
 
 		public Builder setdescripcionMovimiento(String descripcionMovimiento) {
 			this.descripcionMovimiento = descripcionMovimiento;
@@ -119,6 +126,10 @@ public class Movimiento implements Identificable, BorradoLogico{
 		}
 		public Builder setClaseMovimiento(ClaseMovimiento claseMovimiento) {
 			this.claseMovimiento = claseMovimiento;
+			return this;
+		}
+		public Builder setTipoMoneda(TipoMoneda dato) {
+			this.tipoMoneda=dato;
 			return this;
 		}
 
@@ -195,6 +206,14 @@ public class Movimiento implements Identificable, BorradoLogico{
 
 	public void setCobro(Cobro cobro) {
 		this.cobro = cobro;
+	}
+	
+	public TipoMoneda getTipoMoneda() {
+		return tipoMoneda;
+	}
+
+	public void setTipoMoneda(TipoMoneda tipoMoneda) {
+		this.tipoMoneda = tipoMoneda;
 	}
 
 	@Override

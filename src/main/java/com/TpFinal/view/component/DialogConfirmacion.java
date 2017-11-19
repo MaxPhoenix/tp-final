@@ -74,4 +74,10 @@ public class DialogConfirmacion extends CustomComponent {
     public void close() {
 	window.close();
     }
+    
+    public void addNoListener(Button.ClickListener noListener) {
+	if (noListener != null) {
+	    noButton.addClickListener(noListener);
+	}
+    }
 }

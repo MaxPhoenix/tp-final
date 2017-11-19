@@ -23,6 +23,7 @@
 		<!-- Echo all executed SQL to stdout <property name="show_sql">true</property> -->
 
 		<!-- Names the annotated entity class -->
+		<mapping class="com.TpFinal.dto.parametrosSistema.ParametrosSistema" />
 		<mapping class="com.TpFinal.dto.inmueble.Inmueble" />
 		<mapping class="com.TpFinal.dto.inmueble.Coordenada" />
 		<mapping class="com.TpFinal.dto.inmueble.Direccion" />

@@ -14,7 +14,6 @@ public class Parametros {
     public static final String EMAIL_KEY = "emailKey";
     public static final String DB_PATH ="dbPath";
     public static final String DB_NAME = "dbName";
-    // por si ser rompe, lo unico que hice es agregar la ruta C:\\TP\\
     public static final String PARAM_FILE = "Files" + File.separator + "inmobi.properties";
 
     private Parametros() {
@@ -98,7 +97,7 @@ public class Parametros {
 	    prop.setProperty(GEO_KEY, "JDoODiAJNjlcMiwSPR0NNjgAIzUVNSErOFgCPjBDMykzDz0ADlQw");
 	    prop.setProperty(MAPS_KEY, "JDoODiAJNyADIQw7OQITK1IxHysmDFgsAkM1BBkxTF4qAw4KER1d");
 	    prop.setProperty(DB_PATH, "Files");
-	    prop.setProperty(DB_NAME, "inmobi_db_" + randomName);
+	    prop.setProperty(DB_NAME, "inmobi_db");
 	    
 
 	    prop.store(output, null);

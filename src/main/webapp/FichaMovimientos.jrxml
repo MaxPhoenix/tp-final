@@ -1,0 +1,937 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.3.final using JasperReports Library version 6.4.3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Movimientos" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4278f48e-f98f-4135-b140-f5b73130f9f3">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="simbolo" class="java.lang.String">
+		<fieldDescription><![CDATA[simbolo]]></fieldDescription>
+	</field>
+	<field name="fecha" class="java.lang.String">
+		<fieldDescription><![CDATA[fecha]]></fieldDescription>
+	</field>
+	<field name="claseMovimiento" class="java.lang.String">
+		<fieldDescription><![CDATA[claseMovimiento]]></fieldDescription>
+	</field>
+	<field name="monto" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[monto]]></fieldDescription>
+	</field>
+	<field name="descripción" class="java.lang.String">
+		<fieldDescription><![CDATA[descripción]]></fieldDescription>
+	</field>
+	<field name="refTipoRep" class="java.lang.Integer">
+		<fieldDescription><![CDATA[refTipoRep]]></fieldDescription>
+	</field>
+	<field name="mes" class="java.lang.String">
+		<fieldDescription><![CDATA[mes]]></fieldDescription>
+	</field>
+	<field name="tipoMovimiento" class="java.lang.String">
+		<fieldDescription><![CDATA[tipoMovimiento]]></fieldDescription>
+	</field>
+	<field name="anio" class="java.lang.Integer">
+		<fieldDescription><![CDATA[anio]]></fieldDescription>
+	</field>
+	<field name="repAnualMensual" class="java.lang.String">
+		<fieldDescription><![CDATA[repAnualMensual]]></fieldDescription>
+	</field>
+	<variable name="IngresoVentaDolares" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{simbolo}.equals("U$S") && $F{tipoMovimiento}.equals("Ingreso") && $F{claseMovimiento}.equals("Venta") ? $F{monto} : new BigDecimal(0)]]></variableExpression>
+	</variable>
+	<variable name="IngresoVentaPesos" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{simbolo}.equals("$") && $F{tipoMovimiento}.equals("Ingreso") && $F{claseMovimiento}.equals("Venta") ? $F{monto} : new BigDecimal(0)]]></variableExpression>
+	</variable>
+	<variable name="IngresoAlquilerDolares" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{simbolo}.equals("U$S") && $F{tipoMovimiento}.equals("Ingreso") && $F{claseMovimiento}.equals("Alquiler") ? $F{monto} : new BigDecimal(0)]]></variableExpression>
+	</variable>
+	<variable name="IngresoAlquilerPesos" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{simbolo}.equals("$") && $F{tipoMovimiento}.equals("Ingreso") && $F{claseMovimiento}.equals("Alquiler") ? $F{monto} : new BigDecimal(0)]]></variableExpression>
+	</variable>
+	<variable name="IngresoComisionDolares" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{simbolo}.equals("U$S") && $F{tipoMovimiento}.equals("Ingreso") && $F{claseMovimiento}.equals("Comisión") ? $F{monto} : new BigDecimal(0)]]></variableExpression>
+	</variable>
+	<variable name="IngresoComisionPesos" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{simbolo}.equals("$") && $F{tipoMovimiento}.equals("Ingreso") && $F{claseMovimiento}.equals("Comisión") ? $F{monto} : new BigDecimal(0)]]></variableExpression>
+	</variable>
+	<variable name="IngresoOtrosDolares" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{simbolo}.equals("U$S") && $F{tipoMovimiento}.equals("Ingreso") && $F{claseMovimiento}.equals("Otro") ? $F{monto} : new BigDecimal(0)]]></variableExpression>
+	</variable>
+	<variable name="IngresoOtrosPesos" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{simbolo}.equals("$") && $F{tipoMovimiento}.equals("Ingreso") && $F{claseMovimiento}.equals("Otro") ? $F{monto} : new BigDecimal(0)]]></variableExpression>
+	</variable>
+	<variable name="IngresoImpuestosDolares" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{simbolo}.equals("U$S") && $F{tipoMovimiento}.equals("Ingreso") && $F{claseMovimiento}.equals("Impuesto") ? $F{monto} : new BigDecimal(0)]]></variableExpression>
+	</variable>
+	<variable name="IngresoImpuestoPesos" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{simbolo}.equals("$") && $F{tipoMovimiento}.equals("Ingreso") && $F{claseMovimiento}.equals("Impuesto") ? $F{monto} : new BigDecimal(0)]]></variableExpression>
+	</variable>
+	<variable name="EgresoPagoAPropsDolares" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{simbolo}.equals("U$S") && $F{tipoMovimiento}.equals("Egreso") && $F{claseMovimiento}.equals("PagoAPropietario") ? $F{monto} : new BigDecimal(0)]]></variableExpression>
+	</variable>
+	<variable name="EgresoPagoAPropsPesos" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{simbolo}.equals("$") && $F{tipoMovimiento}.equals("Egreso") && $F{claseMovimiento}.equals("PagoAPropietario") ? $F{monto} : new BigDecimal(0)]]></variableExpression>
+	</variable>
+	<variable name="EgresoOtrosDolares" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{simbolo}.equals("U$S") && $F{tipoMovimiento}.equals("Egreso") && $F{claseMovimiento}.equals("Otro") ? $F{monto} : new BigDecimal(0)]]></variableExpression>
+	</variable>
+	<variable name="EgresoOtrosPesos" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{simbolo}.equals("$") && $F{tipoMovimiento}.equals("Egreso") && $F{claseMovimiento}.equals("Otro") ? $F{monto} : new BigDecimal(0)]]></variableExpression>
+	</variable>
+	<variable name="EgresoImpuestosDolares" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{simbolo}.equals("U$S") && $F{tipoMovimiento}.equals("Egreso") && $F{claseMovimiento}.equals("Impuesto") ? $F{monto} : new BigDecimal(0)]]></variableExpression>
+	</variable>
+	<variable name="EgresoImpuestosPesos" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{simbolo}.equals("$") && $F{tipoMovimiento}.equals("Egreso") && $F{claseMovimiento}.equals("Impuesto") ? $F{monto} : new BigDecimal(0)]]></variableExpression>
+	</variable>
+	<group name="Group1">
+		<groupExpression><![CDATA[$F{repAnualMensual}]]></groupExpression>
+		<groupHeader>
+			<band height="36">
+				<frame>
+					<reportElement x="0" y="0" width="554" height="30" uuid="f6de9634-791b-4c18-9de3-0429b60267dc"/>
+					<textField>
+						<reportElement mode="Opaque" x="0" y="0" width="552" height="30" forecolor="#FFFFFF" backcolor="#BD605E" uuid="04a16b7d-75d4-4f3b-a75a-8a15a49562cf"/>
+						<box>
+							<pen lineStyle="Solid" lineColor="#030303"/>
+							<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#030303"/>
+							<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#030303"/>
+							<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#030303"/>
+							<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#030303"/>
+						</box>
+						<textElement>
+							<font fontName="SansSerif" size="14" isBold="true"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{repAnualMensual}]]></textFieldExpression>
+					</textField>
+				</frame>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="8"/>
+		</groupFooter>
+	</group>
+	<group name="Group2">
+		<groupExpression><![CDATA[$F{tipoMovimiento}]]></groupExpression>
+		<groupHeader>
+			<band height="36">
+				<frame>
+					<reportElement x="0" y="0" width="554" height="30" uuid="e40d7163-08f9-4930-be93-45930273af69"/>
+					<textField>
+						<reportElement mode="Opaque" x="0" y="0" width="552" height="30" forecolor="#FFFFFF" backcolor="#729BB8" uuid="13af1f9d-ee4d-4a2e-b1de-0069443822f7"/>
+						<box>
+							<pen lineStyle="Solid" lineColor="#030303"/>
+							<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#030303"/>
+							<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#030303"/>
+							<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#030303"/>
+							<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#030303"/>
+						</box>
+						<textElement>
+							<font fontName="SansSerif" size="14" isBold="true"/>
+						</textElement>
+						<textFieldExpression><![CDATA["Tipo de Movimiento: " + $F{tipoMovimiento}]]></textFieldExpression>
+					</textField>
+				</frame>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="8"/>
+		</groupFooter>
+	</group>
+	<group name="Group3">
+		<groupExpression><![CDATA[$F{anio}]]></groupExpression>
+		<groupHeader>
+			<band height="34">
+				<frame>
+					<reportElement x="1" y="0" width="551" height="30" uuid="7e0e9a81-afee-4cbb-9059-5fe34cb93559"/>
+					<textField>
+						<reportElement mode="Opaque" x="-1" y="0" width="552" height="29" forecolor="#FFFFFF" backcolor="#6EBAB3" uuid="96b0633a-1a2e-4ffb-b70c-6b7f088293df"/>
+						<box>
+							<pen lineStyle="Solid" lineColor="#030303"/>
+							<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#030303"/>
+							<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#030303"/>
+							<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#030303"/>
+							<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#030303"/>
+						</box>
+						<textElement>
+							<font fontName="SansSerif" size="14" isBold="true"/>
+						</textElement>
+						<textFieldExpression><![CDATA["Año: " + $F{anio}]]></textFieldExpression>
+					</textField>
+				</frame>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="7"/>
+		</groupFooter>
+	</group>
+	<group name="Group4">
+		<groupExpression><![CDATA[$F{mes}]]></groupExpression>
+		<groupHeader>
+			<band height="35">
+				<frame>
+					<reportElement x="1" y="0" width="551" height="30" uuid="6158529b-2859-4834-95ab-494563d6913b"/>
+					<textField>
+						<reportElement mode="Opaque" x="-1" y="0" width="552" height="29" forecolor="#FFFFFF" backcolor="#7F8281" uuid="c5386631-6363-4977-90fa-dc6f18dcecd0"/>
+						<box>
+							<pen lineStyle="Solid" lineColor="#030303"/>
+							<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#030303"/>
+							<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#030303"/>
+							<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#030303"/>
+							<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#030303"/>
+						</box>
+						<textElement>
+							<font fontName="SansSerif" size="14" isBold="true"/>
+						</textElement>
+						<textFieldExpression><![CDATA["Mes: " + $F{mes}]]></textFieldExpression>
+					</textField>
+				</frame>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="6"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="80" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="554" height="80" uuid="dcd0b6f6-f3aa-4695-815d-3d8ffb1ce7f7"/>
+				<staticText>
+					<reportElement key="" mode="Opaque" x="1" y="0" width="551" height="45" forecolor="#FCFAFA" backcolor="#000000" uuid="a24e69a3-61db-458e-9be7-d9eecc8123bd"/>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFAFA"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFAFA"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="24" isBold="true" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[                Ficha de Ingresos/Egresos]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="" x="120" y="45" width="160" height="30" uuid="ef670e31-0a53-4bf7-996d-2a1924725320"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="12"/>
+					</textElement>
+					<text><![CDATA[Reporte generado el día:]]></text>
+				</staticText>
+				<textField pattern="d/M/yyyy">
+					<reportElement key="" x="280" y="45" width="150" height="30" uuid="3b46e2c1-9786-4e2f-b4b9-22be2a6f8cb2"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="6" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="42" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="554" height="40" uuid="e6147148-ef62-434f-a696-2fb06c65f6b3"/>
+				<staticText>
+					<reportElement key="" mode="Opaque" x="0" y="5" width="150" height="30" forecolor="#FCFCFC" backcolor="#000000" uuid="3b26ca42-a19e-42b4-85c0-06bd91e2d187"/>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement>
+						<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[ Descripción]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="" mode="Opaque" x="310" y="5" width="50" height="30" forecolor="#FCFCFC" backcolor="#000000" uuid="19c4124e-f4e5-4ca1-8a06-4b8d7bb5932a"/>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement>
+						<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[ Simb.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="" mode="Opaque" x="360" y="5" width="110" height="30" forecolor="#FCFCFC" backcolor="#000000" uuid="41ca4302-f8e3-4fe3-a012-9f0ca6356e9a"/>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement>
+						<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[ Monto]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="" mode="Opaque" x="150" y="5" width="160" height="30" forecolor="#FCFCFC" backcolor="#000000" uuid="af901636-085b-4b39-87b8-9ac5c76f35c0"/>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement>
+						<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[ Clase de Mov.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="" mode="Opaque" x="470" y="5" width="82" height="30" forecolor="#FCFCFC" backcolor="#000000" uuid="7e5d481b-98aa-4d45-958d-2358ffe230bc"/>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement>
+						<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false"/>
+					</textElement>
+					<text><![CDATA[ Fecha]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="51" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="554" height="40" uuid="51437d40-4300-45aa-bd77-9e8eb812d7f9"/>
+				<textField>
+					<reportElement key="" x="1" y="0" width="149" height="30" uuid="e8316d43-d32f-4dd1-a1a3-ece47d09c2ff"/>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement>
+						<font fontName="SansSerif" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{descripción}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement key="" x="150" y="0" width="160" height="30" uuid="f33135a6-7140-4c57-a735-5c6a170fe466"/>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement>
+						<font fontName="SansSerif" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{claseMovimiento}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement key="" x="310" y="0" width="50" height="30" uuid="706cf3cc-0412-40cb-9005-4755759e9f11"/>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement>
+						<font fontName="SansSerif" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{simbolo}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement key="" x="360" y="0" width="110" height="30" uuid="14a457b9-322c-487a-b199-3134beebb7d9"/>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement>
+						<font fontName="SansSerif" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{monto}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement key="" x="470" y="0" width="82" height="30" uuid="15bba925-f9c0-4a70-b46e-79fbbef0d0b2"/>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement>
+						<font fontName="SansSerif" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="5" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="45" splitType="Stretch">
+			<frame>
+				<reportElement x="1" y="0" width="554" height="40" uuid="056b41f0-3899-4c1f-83e4-12dc9e8bec60"/>
+				<textField evaluationTime="Report">
+					<reportElement key="" x="480" y="6" width="63" height="30" uuid="80cc4f56-72ea-42e1-89db-3ff2e8fac205"/>
+					<textElement textAlignment="Left">
+						<font fontName="SansSerif"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement key="" x="410" y="6" width="70" height="30" uuid="3510610e-3910-4c0f-bc46-37f969558cf1"/>
+					<textElement textAlignment="Right">
+						<font fontName="SansSerif"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="606" splitType="Stretch">
+			<frame>
+				<reportElement x="2" y="0" width="552" height="600" uuid="d5a48b3e-1c0f-4d54-9c68-4e185c69907c"/>
+				<staticText>
+					<reportElement mode="Opaque" x="4" y="10" width="140" height="49" forecolor="#FFFFFF" backcolor="#000000" uuid="3513dc4d-1c84-464a-8a05-38ef344b3b74">
+						<printWhenExpression><![CDATA[new Boolean($F{tipoMovimiento}.equals("Ingreso"))]]></printWhenExpression>
+					</reportElement>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Importe Total de Ingresos de Venta en Dólares:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="4" y="127" width="140" height="50" forecolor="#FFFFFF" backcolor="#000000" uuid="fdc15bf9-fcf6-4b80-b12a-fb709b3ed71d">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<printWhenExpression><![CDATA[new Boolean($F{tipoMovimiento}.equals("Ingreso"))]]></printWhenExpression>
+					</reportElement>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Importe Total de Ingresos de Alquiler en Dólares:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="3" y="245" width="140" height="50" forecolor="#FFFFFF" backcolor="#000000" uuid="80a5b219-cd8c-4409-ae47-4de6800ec94f">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<printWhenExpression><![CDATA[new Boolean($F{tipoMovimiento}.equals("Ingreso"))]]></printWhenExpression>
+					</reportElement>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Importe Total de Ingresos de Comisión en Dólares:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="144" y="10" width="120" height="49" uuid="7f8ddd3e-e9d8-4cad-93ce-4b9bb09cdf28">
+						<printWhenExpression><![CDATA[new Boolean($F{tipoMovimiento}.equals("Ingreso"))]]></printWhenExpression>
+					</reportElement>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["  "+$V{IngresoVentaDolares}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="144" y="127" width="120" height="50" uuid="01ecba5e-3033-485e-abaf-3f3afbdf655d">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<printWhenExpression><![CDATA[new Boolean($F{tipoMovimiento}.equals("Ingreso"))]]></printWhenExpression>
+					</reportElement>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["  "+$V{IngresoAlquilerDolares}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="143" y="245" width="120" height="50" uuid="a9d5b1c1-9c54-444b-ae76-cb9a60372904">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<printWhenExpression><![CDATA[new Boolean($F{tipoMovimiento}.equals("Ingreso"))]]></printWhenExpression>
+					</reportElement>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["  "+$V{IngresoComisionDolares}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="144" y="186" width="120" height="50" uuid="4fbfd62a-6158-4544-9e03-98542dca581e">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<printWhenExpression><![CDATA[new Boolean($F{tipoMovimiento}.equals("Ingreso"))]]></printWhenExpression>
+					</reportElement>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["  "+$V{IngresoAlquilerPesos}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Opaque" x="4" y="68" width="140" height="50" forecolor="#FFFFFF" backcolor="#000000" uuid="fffdf396-fa95-43d4-ae23-3c1b13d28cc2">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<printWhenExpression><![CDATA[new Boolean($F{tipoMovimiento}.equals("Ingreso"))]]></printWhenExpression>
+					</reportElement>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Importe Total de Ingresos de Venta en Pesos:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="144" y="68" width="120" height="50" uuid="25aeeb9a-07ac-48ff-9a52-c9df104ea897">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<printWhenExpression><![CDATA[new Boolean($F{tipoMovimiento}.equals("Ingreso"))]]></printWhenExpression>
+					</reportElement>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["  "+$V{IngresoVentaPesos}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Opaque" x="4" y="186" width="140" height="50" forecolor="#FFFFFF" backcolor="#000000" uuid="1921fdb2-0678-417d-9021-b7ad093c43b9">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<printWhenExpression><![CDATA[new Boolean($F{tipoMovimiento}.equals("Ingreso"))]]></printWhenExpression>
+					</reportElement>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Importe Total de Ingresos de Alquiler en Pesos:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="282" y="228" width="140" height="50" forecolor="#FFFFFF" backcolor="#000000" uuid="3d13563c-ae59-477d-866f-4ce6ccc6fae4">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<printWhenExpression><![CDATA[new Boolean($F{tipoMovimiento}.equals("Egreso"))]]></printWhenExpression>
+					</reportElement>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Importe Total de Otros Egresos en Pesos:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="282" y="90" width="140" height="70" forecolor="#FFFFFF" backcolor="#000000" uuid="18e9547e-fb17-46a6-8494-8dc05bd50a89">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<printWhenExpression><![CDATA[new Boolean($F{tipoMovimiento}.equals("Egreso"))]]></printWhenExpression>
+					</reportElement>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Importe Total de Egresos de Pago a Props. en Pesos:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="422" y="228" width="120" height="50" uuid="ff556d0f-9e36-4cda-8c81-f8cecc009ed9">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<printWhenExpression><![CDATA[new Boolean($F{tipoMovimiento}.equals("Egreso"))]]></printWhenExpression>
+					</reportElement>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["  "+$V{EgresoOtrosPesos}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Opaque" x="283" y="10" width="140" height="70" forecolor="#FFFFFF" backcolor="#000000" uuid="4f2c0bef-ecfc-4640-a05d-90679535717d">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<printWhenExpression><![CDATA[new Boolean($F{tipoMovimiento}.equals("Egreso"))]]></printWhenExpression>
+					</reportElement>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Importe Total de Egresos de Pago a Props. en Dólares:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="423" y="10" width="120" height="70" uuid="396c91da-3123-46d7-982e-d544c86273e4">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<printWhenExpression><![CDATA[new Boolean($F{tipoMovimiento}.equals("Egreso"))]]></printWhenExpression>
+					</reportElement>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["  "+$V{EgresoPagoAPropsDolares}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="422" y="90" width="120" height="70" uuid="c2a885eb-f05d-4959-9886-788570213b9a">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<printWhenExpression><![CDATA[new Boolean($F{tipoMovimiento}.equals("Egreso"))]]></printWhenExpression>
+					</reportElement>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["  "+$V{EgresoPagoAPropsPesos}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Opaque" x="282" y="169" width="140" height="50" forecolor="#FFFFFF" backcolor="#000000" uuid="8f94c00f-8510-41fc-bdb6-634e6d86eab4">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<printWhenExpression><![CDATA[new Boolean($F{tipoMovimiento}.equals("Egreso"))]]></printWhenExpression>
+					</reportElement>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Importe Total de Otros Egresos en Dólares:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="421" y="169" width="120" height="50" uuid="a4ec6b0d-0625-48ec-8897-e87633fdf0aa">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<printWhenExpression><![CDATA[new Boolean($F{tipoMovimiento}.equals("Egreso"))]]></printWhenExpression>
+					</reportElement>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["  "+$V{EgresoOtrosDolares}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Opaque" x="3" y="304" width="140" height="50" forecolor="#FFFFFF" backcolor="#000000" uuid="71f8453b-7838-4c11-987a-1481948d536a">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<printWhenExpression><![CDATA[new Boolean($F{tipoMovimiento}.equals("Ingreso"))]]></printWhenExpression>
+					</reportElement>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Importe Total de Ingresos de Comisión en Pesos:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="4" y="420" width="140" height="50" forecolor="#FFFFFF" backcolor="#000000" uuid="5f5e9f32-a2f0-4339-8c56-0aacb1a9810a">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<printWhenExpression><![CDATA[new Boolean($F{tipoMovimiento}.equals("Ingreso"))]]></printWhenExpression>
+					</reportElement>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Importe Total de Otros Ingresos en Pesos:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="143" y="304" width="120" height="50" uuid="83cb39ec-dff3-402e-96fb-e0a52052788e">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<printWhenExpression><![CDATA[new Boolean($F{tipoMovimiento}.equals("Ingreso"))]]></printWhenExpression>
+					</reportElement>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["  "+$V{IngresoComisionPesos}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="144" y="420" width="120" height="50" uuid="2c3d22e8-3d5e-4054-9860-fcce1726dea0">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<printWhenExpression><![CDATA[new Boolean($F{tipoMovimiento}.equals("Ingreso"))]]></printWhenExpression>
+					</reportElement>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["  "+ $V{IngresoOtrosPesos}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="144" y="362" width="120" height="50" uuid="5c650763-380d-4cfd-81c3-2ca4e22a3e21">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<printWhenExpression><![CDATA[new Boolean($F{tipoMovimiento}.equals("Ingreso"))]]></printWhenExpression>
+					</reportElement>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["  "+$V{IngresoOtrosDolares}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Opaque" x="4" y="362" width="140" height="50" forecolor="#FFFFFF" backcolor="#000000" uuid="88cc5ef0-baff-4dc7-a7e4-62420d29ab6f">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<printWhenExpression><![CDATA[new Boolean($F{tipoMovimiento}.equals("Ingreso"))]]></printWhenExpression>
+					</reportElement>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Importe Total de Otros Ingresos en Dólares:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="5" y="479" width="140" height="50" forecolor="#FFFFFF" backcolor="#000000" uuid="cc9ad537-114f-49e2-b3da-2ed011a3b3a1">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<printWhenExpression><![CDATA[new Boolean($F{tipoMovimiento}.equals("Ingreso"))]]></printWhenExpression>
+					</reportElement>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Importe Total de Ingresos de Impuestos en Dólares:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="145" y="479" width="120" height="50" uuid="e77fc925-2635-4739-b807-ae23256102f1">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<printWhenExpression><![CDATA[new Boolean($F{tipoMovimiento}.equals("Ingreso"))]]></printWhenExpression>
+					</reportElement>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["  "+$V{IngresoImpuestosDolares}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Opaque" x="4" y="537" width="140" height="50" forecolor="#FFFFFF" backcolor="#000000" uuid="a69bb401-4d9b-4265-9261-48aef350b29c">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<printWhenExpression><![CDATA[new Boolean($F{tipoMovimiento}.equals("Ingreso"))]]></printWhenExpression>
+					</reportElement>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Importe Total de Ingresos de Impuestos en Pesos:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="144" y="537" width="120" height="50" uuid="f5a2a572-f8f4-4258-a136-e4a014befabd">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<printWhenExpression><![CDATA[new Boolean($F{tipoMovimiento}.equals("Ingreso"))]]></printWhenExpression>
+					</reportElement>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["  "+ $V{IngresoImpuestoPesos}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="422" y="287" width="120" height="50" uuid="673a8524-ff6c-400c-b72a-edae9d9d4149">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<printWhenExpression><![CDATA[new Boolean($F{tipoMovimiento}.equals("Egreso"))]]></printWhenExpression>
+					</reportElement>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["  "+$V{EgresoImpuestosDolares}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Opaque" x="282" y="348" width="140" height="50" forecolor="#FFFFFF" backcolor="#000000" uuid="f6ddbab7-5d6b-4968-9064-9b2da93da38c">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<printWhenExpression><![CDATA[new Boolean($F{tipoMovimiento}.equals("Egreso"))]]></printWhenExpression>
+					</reportElement>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Importe Total de Egresos de Impuestos en Pesos:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="422" y="348" width="120" height="50" uuid="b8ba35bb-5b74-4110-ab37-825861f3ddb8">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<printWhenExpression><![CDATA[new Boolean($F{tipoMovimiento}.equals("Egreso"))]]></printWhenExpression>
+					</reportElement>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA["  "+ $V{EgresoImpuestosPesos}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Opaque" x="282" y="287" width="140" height="50" forecolor="#FFFFFF" backcolor="#000000" uuid="9c96a227-9be3-41ff-850a-8ef5f5615df2">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<printWhenExpression><![CDATA[new Boolean($F{tipoMovimiento}.equals("Egreso"))]]></printWhenExpression>
+					</reportElement>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Importe Total de Egresos de Impuestos en Dólares:]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</summary>
+</jasperReport>

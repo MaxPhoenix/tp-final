@@ -134,10 +134,10 @@ public class PlanificadorIT {
 		System.out.println();
 	}
 
-	@Ignore
 	@Test
 	public void addCobrosVencidos() throws InterruptedException {
 		sc.setNotificacion(new NotificadorConcreto());
+		sc.setMailSender(new NotificadorConcreto());
 		sc.setHoraInicioCobrosVencidos(LocalTime.now().plusMinutes(2));
 		ContratoAlquiler contrato=instanciaAlquilerConCobrosVencidos();
 		contrato.setEstadoContrato(EstadoContrato.Vigente);
@@ -194,7 +194,6 @@ public class PlanificadorIT {
 	public void addCobrosPorVencer() throws InterruptedException {
 		sc.setNotificacion(new NotificadorConcreto());
 		sc.setMailSender(new NotificadorConcreto());
-		sc.setHoraInicioCobrosVencidos(LocalTime.now().plusMinutes(2));
 		ContratoAlquiler contrato=instanciaAlquilerConCobrosPorVencer();
 		contrato.setEstadoContrato(EstadoContrato.Vigente);
 		contrato.setInquilinoContrato(personaInquilino(1).getInquilino());
@@ -239,12 +238,13 @@ public class PlanificadorIT {
 			Planificador.get().addJobCobroPorVencer(c);
 			Planificador.get().removeJobCobroPorVencer(c);
 		});
-		TimeUnit.SECONDS.sleep(60);
+		TimeUnit.SECONDS.sleep(62);
 		System.out.println();
 		System.out.println("--------------------");
 		System.out.println();
 	}
 	
+	@Ignore
 	@Test 
 	public void addAlquilerPorVencer() throws InterruptedException {
 		sc.setNotificacion(new NotificadorConcreto());
@@ -292,7 +292,7 @@ public class PlanificadorIT {
 		sc.addJobAlquilerPorVencer(ca);
 		sc.removeJobAlquilerPorVencer(ca);
 		
-		TimeUnit.SECONDS.sleep(62);
+		TimeUnit.SECONDS.sleep(10);
 	}
 	
 	@Ignore
@@ -343,7 +343,7 @@ public class PlanificadorIT {
 		sc.addJobAlquilerVencido(ca);
 		sc.removeJobAlquilerPorVencido(ca);
 		
-		TimeUnit.SECONDS.sleep(62);
+		TimeUnit.SECONDS.sleep(10);
 	}
 
 	public TipoCita randomCita() {
@@ -417,7 +417,7 @@ public class PlanificadorIT {
 		ContratoAlquiler ret = new ContratoAlquiler.Builder()
 				.setFechaIngreso(fecha)
 				.setValorIncial(new BigDecimal("100.00"))
-				.setDiaDePago(fecha.plusDays(1).getDayOfMonth())
+				.setDiaDePago(fecha.plusDays(10).getDayOfMonth())
 				.setInteresPunitorio(new Double(50))
 				.setIntervaloActualizacion(new Integer(2))
 				.setTipoIncrementoCuota(TipoInteres.Simple)

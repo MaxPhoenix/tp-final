@@ -32,8 +32,8 @@ public class ContratoDuracionService {
 
     public List<ContratoDuracion> findAll(FiltroDuracion filtro) {
 	List<ContratoDuracion> duraciones = dao.readAllActives().stream()
-						.filter(filtro.getFiltroCompuesto())
-						.collect(Collectors.toList());
+		.filter(filtro.getFiltroCompuesto())
+		.collect(Collectors.toList());
 	duraciones.sort(Comparator.comparing(ContratoDuracion::getId));
 	return duraciones;
     }
@@ -43,6 +43,17 @@ public class ContratoDuracionService {
 		.setDescripcion("")
 		.setDuracion(1)
 		.build();
+    }
+
+    /**
+     * Crea duraciones de 24 y 36 meses por defecto si la bd no tiene registros de duraciones activos.
+     */
+    public static void crearDuracionesPorDefecto() {
+	DAOContratoDuracion dao = new DAOContratoDuracionImpl();
+	if (dao.readAllActives().isEmpty()) {
+	    dao.save(new ContratoDuracion.Builder().setDescripcion("24 Meses").setDuracion(24).build());
+	    dao.save(new ContratoDuracion.Builder().setDescripcion("36 Meses").setDuracion(36).build());
+	}
     }
 
 }

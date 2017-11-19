@@ -1,4 +1,4 @@
-package com.TpFinal.dto.contrato;
+	package com.TpFinal.dto.contrato;
 
 import java.sql.Blob;
 import java.time.LocalDate;
